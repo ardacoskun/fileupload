@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
 
 const UploadInput = () => {
+  const [files, setFiles] = useState([]);
+
+  const handleInputChange = (e) => {
+    if (e.target.files[0]) {
+      setFiles(e.target.files[0]);
+    }
+  };
+
   return (
     <UploadInputWrapper>
       <UploadInputContainer>
         <UploadInputImage src={cloudImage} alt="upload" />
         <h2>Choose a file or drag it here</h2>
       </UploadInputContainer>
-      <input type="file" value="" />
+      <input type="file" value="" onChange={handleInputChange} />
     </UploadInputWrapper>
   );
 };
@@ -24,6 +32,7 @@ const UploadInputWrapper = styled.div`
   align-items: center;
   justify-content: center;
   border: 3px solid black;
+  margin-top: 200px;
 
   &:hover {
     opacity: 0.6;
@@ -47,7 +56,7 @@ const UploadInputContainer = styled.div`
 `;
 
 const UploadInputImage = styled.img`
-  width: 100px;
+  width: 150px;
 `;
 
 export default UploadInput;
