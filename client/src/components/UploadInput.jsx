@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
 import PropTypes from "prop-types";
+import { upload } from "../api/api";
 
 const UploadInput = (props) => {
   const [files, setFiles] = useState([]);
@@ -9,7 +10,7 @@ const UploadInput = (props) => {
   const handleInputChange = (e) => {
     if (e.target.files[0]) {
       setFiles(e.target.files[0]);
-      props.onFileChange(files);
+      props.onFileChange(e.target.files[0]);
     }
   };
 

@@ -4,7 +4,7 @@ import { UploadInput } from "../components";
 
 const Upload = () => {
   const onFileChange = (files) => {
-    //console.log(files);
+    console.log(files);
   };
   return (
     <UploadContainer>
