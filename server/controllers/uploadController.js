@@ -1,12 +1,14 @@
+const File = require("../models/File");
+
 const fileUpload = async (req, res, next) => {
   try {
-    const file = {
+    const newFile = new File({
       fileName: req.file.originalname,
       fileType: req.file.mimetype,
       fileSize: sizeConvert(req.file.size, 3),
       filePath: req.file.path,
-    };
-    console.log("file", file);
+    });
+    await newFile.save();
     res.status(201).send("Upload Successfully");
   } catch (error) {
     res.status.send(error);
