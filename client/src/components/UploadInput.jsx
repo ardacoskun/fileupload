@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
+import PropTypes from "prop-types";
 
-const UploadInput = () => {
+const UploadInput = (props) => {
   const [files, setFiles] = useState([]);
 
   const handleInputChange = (e) => {
     if (e.target.files[0]) {
       setFiles(e.target.files[0]);
+      props.onFileChange(files);
     }
   };
 
@@ -58,5 +60,9 @@ const UploadInputContainer = styled.div`
 const UploadInputImage = styled.img`
   width: 150px;
 `;
+
+UploadInput.propTypes = {
+  onFileChange: PropTypes.func,
+};
 
 export default UploadInput;

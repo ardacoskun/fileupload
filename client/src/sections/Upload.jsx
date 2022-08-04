@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { UploadInput } from "../components";
 
 const Upload = () => {
+  const onFileChange = (files) => {
+    //console.log(files);
+  };
   return (
     <UploadContainer>
-      <UploadInput />
+      <UploadInput onFileChange={(files) => onFileChange(files)} />
     </UploadContainer>
   );
 };
