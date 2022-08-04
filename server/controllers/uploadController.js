@@ -1,6 +1,7 @@
 const File = require("../models/File");
 
-const fileUpload = async (req, res, next) => {
+//Create New File
+const fileUpload = async (req, res) => {
   try {
     const newFile = new File({
       fileName: req.file.originalname,
@@ -12,6 +13,16 @@ const fileUpload = async (req, res, next) => {
     res.status(201).send("Upload Successfully");
   } catch (error) {
     res.status.send(error);
+  }
+};
+
+//Get File
+const getFile = async (req, res) => {
+  try {
+    const files = await File.find();
+    res.status(200).send(files);
+  } catch (error) {
+    res.status(400).send(error);
   }
 };
 
@@ -29,4 +40,4 @@ const sizeConvert = (bytes, decimal) => {
   );
 };
 
-module.exports = { fileUpload };
+module.exports = { fileUpload, getFile };
