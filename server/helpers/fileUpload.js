@@ -1,8 +1,11 @@
 const multer = require("multer");
-const path = require("path");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
-  destination: (req, filte, cb) => {
+  destination: (req, file, cb) => {
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
+    }
     cb(null, "uploads");
   },
   filename: (req, file, cb) => {
@@ -26,3 +29,5 @@ const filterFile = (req, file, cb) => {
 };
 
 const upload = multer({ storage: storage, filterFile: filterFile });
+
+module.exports = { upload };
