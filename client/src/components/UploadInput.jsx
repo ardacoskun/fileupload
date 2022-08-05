@@ -3,7 +3,7 @@ import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
 import { upload } from "../api/api";
 
-const UploadInput = ({ handleFileChange, handleCancel }) => {
+const UploadInput = ({ handleFileChange }) => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -89,17 +89,17 @@ const UploadInputBtnContainer = styled.div`
 const UploadInputBtn = styled.button`
   padding: 10px;
   width: 100%;
+  border: none;
+  outline: none;
   cursor: pointer;
   border-radius: 20px;
-  border: 1px solid black;
-  background-color: #4267b2;
-  display: ${({ disabled }) => (disabled ? "none" : "block")};
+  background-color: ${({ disabled }) => (disabled ? "gray" : "#4267b2")};
   color: white;
   font-size: 20px;
   font-weight: bold;
 
   &:hover {
-    background-color: #2a4375;
+    background-color: ${({ disabled }) => (disabled ? "gray" : "#2a4375")};
   }
 `;
 
