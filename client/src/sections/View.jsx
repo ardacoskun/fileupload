@@ -1,30 +1,71 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { getFile } from "../api/api";
 
 const View = () => {
   const [files, setFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState(files);
 
   const tabLinks = ["Videos", "Images", "Texts", "Others"];
 
-  const handleGetFile = async () => {
-    try {
-      const files = await getFile();
-      setFiles(files);
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    const handleGetFile = async () => {
+      try {
+        const files = await getFile();
+        setFiles(files);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleGetFile();
+  }, [selectedFiles]);
+
+  const handleGetType = (link) => {
+    if (link.toLowerCase() === "videos") {
+      const filteredFiles = files.filter((file) =>
+        file.fileType.includes("video")
+      );
+      setSelectedFiles([...filteredFiles]);
+    }
+    if (link.toLowerCase() === "images") {
+      const filteredFiles = files.filter((file) =>
+        file.fileType.includes("image")
+      );
+      setSelectedFiles([...filteredFiles]);
+    }
+    if (link.toLowerCase() === "texts") {
+      const filteredFiles = files.filter(
+        (file) =>
+          file.fileType.includes("text") ||
+          file.fileType.includes("application")
+      );
+      setSelectedFiles([...filteredFiles]);
+    }
+    if (link.toLowerCase() === "others") {
     }
   };
 
   return (
     <ViewWrapper>
-      <ViewTabs>
-        <ViewTabsList>
-          {tabLinks.map((link, index) => (
-            <ViewTabsLink key={index}>{link}</ViewTabsLink>
+      <ViewContainer>
+        <ViewTabs>
+          <ViewTabsList>
+            {tabLinks.map((link, index) => (
+              <ViewTabsLink key={index} onClick={() => handleGetType(link)}>
+                {link}
+              </ViewTabsLink>
+            ))}
+          </ViewTabsList>
+        </ViewTabs>
+        <div>
+          {selectedFiles.map((file, index) => (
+            <div key={index}>
+              <div>{file.fileName}</div>
+            </div>
           ))}
-        </ViewTabsList>
-      </ViewTabs>
+        </div>
+      </ViewContainer>
     </ViewWrapper>
   );
 };
@@ -35,6 +76,11 @@ const ViewWrapper = styled.div`
   flex: 1;
   height: 100%;
   width: 100%;
+`;
+
+const ViewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ViewTabs = styled.div`
