@@ -6,6 +6,7 @@ import { upload } from "../api/api";
 
 const UploadInput = (props) => {
   const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     if (e.target.files[0]) {
@@ -15,9 +16,11 @@ const UploadInput = (props) => {
   };
 
   const handleUpload = async () => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("file", files);
     await upload(formData);
+    setLoading(false);
   };
 
   return (
@@ -36,7 +39,7 @@ const UploadInput = (props) => {
           disabled={files.length < 1 && true}
           onClick={handleUpload}
         >
-          Upload
+          {loading ? "Loading..." : "Upload"}
         </UploadInputBtn>
       </UploadInputBtnContainer>
     </div>
