@@ -1,4 +1,5 @@
 const File = require("../models/File");
+const displayDate = require("../helpers/getDate");
 
 //Create New File
 const fileUpload = async (req, res) => {
@@ -8,6 +9,7 @@ const fileUpload = async (req, res) => {
       fileType: req.file.mimetype,
       fileSize: sizeConvert(req.file.size, 3),
       filePath: req.file.path,
+      uploadDate: displayDate,
     });
     await newFile.save();
     res.status(201).send("Upload Successfully");
