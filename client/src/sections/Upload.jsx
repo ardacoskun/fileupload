@@ -12,7 +12,7 @@ const Upload = () => {
   return (
     <UploadContainer>
       <UploadInput handleFileChange={(files) => handleFileChange(files)} />
-      <UploadPreview files={files} />
+      <UploadPreview files={files} setFiles={setFiles} />
     </UploadContainer>
   );
 };

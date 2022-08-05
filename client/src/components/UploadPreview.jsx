@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import cloud from "../assets/cloud.png";
 
-const UploadPreview = ({ files }) => {
+const UploadPreview = ({ files, setFiles }) => {
+  const handleCancel = () => {
+    setFiles([]);
+  };
   return (
     <>
       {files.length !== 0 ? (
@@ -11,9 +14,13 @@ const UploadPreview = ({ files }) => {
             <img src={cloud} alt="previewIcon" />
             <UploadPreviewInfo>
               <h4>{files.name}</h4>
-              <h4>{files.type.split("/")[1].toUpperCase() || "unknown"}</h4>
+              <h4>
+                {files.type.split("/")[1].toUpperCase() || files.name.slice(-4)}
+              </h4>
             </UploadPreviewInfo>
-            <UploadPreviewCancelBtn>x</UploadPreviewCancelBtn>
+            <UploadPreviewCancelBtn onClick={handleCancel}>
+              x
+            </UploadPreviewCancelBtn>
           </UploadPreviewContainer>
         </UploadPreviewWrapper>
       ) : null}
@@ -65,6 +72,7 @@ const UploadPreviewCancelBtn = styled.span`
   position: absolute;
   right: 10px;
   top: 50%;
+  margin-right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
   color: red;
