@@ -3,7 +3,7 @@ import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
 import { upload } from "../api/api";
 
-const UploadInput = ({ handleFileChange, handleCancel }) => {
+const UploadInput = ({ handleFileChange }) => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
