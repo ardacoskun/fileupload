@@ -15,6 +15,12 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api", uploadRoutes);
 
+app.use((req, res) => {
+  res.status(404).json({
+    errors: "Page Not Found",
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGO_URI)
