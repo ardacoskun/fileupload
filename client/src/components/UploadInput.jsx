@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
-import PropTypes from "prop-types";
 import { upload } from "../api/api";
 
-const UploadInput = (props) => {
+const UploadInput = ({ handleFileChange }) => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     if (e.target.files[0]) {
       setFiles(e.target.files[0]);
-      props.onFileChange(e.target.files[0]);
+      handleFileChange(e.target.files[0]);
     }
   };
 
@@ -55,7 +54,6 @@ const UploadInputWrapper = styled.div`
   align-items: center;
   justify-content: center;
   border: 3px solid black;
-  margin-top: 200px;
 
   &:hover {
     opacity: 0.6;
@@ -104,9 +102,5 @@ const UploadInputBtn = styled.button`
     background-color: #2a4375;
   }
 `;
-
-UploadInput.propTypes = {
-  onFileChange: PropTypes.func,
-};
 
 export default UploadInput;
