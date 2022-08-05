@@ -10,3 +10,15 @@ export const upload = async (data) => {
     };
   }
 };
+
+export const getFile = async () => {
+  try {
+    const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/file`);
+    return data;
+  } catch (exception) {
+    return {
+      error: true,
+      exception,
+    };
+  }
+};
