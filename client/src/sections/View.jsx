@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { getFile } from "../api/api";
+import { ViewLayout } from "../components";
 
 const View = () => {
   const [files, setFiles] = useState([]);
@@ -58,13 +59,7 @@ const View = () => {
             ))}
           </ViewTabsList>
         </ViewTabs>
-        <div>
-          {selectedFiles.map((file, index) => (
-            <div key={index}>
-              <div>{file.fileName}</div>
-            </div>
-          ))}
-        </div>
+        <ViewLayout selectedFiles={selectedFiles} />
       </ViewContainer>
     </ViewWrapper>
   );
