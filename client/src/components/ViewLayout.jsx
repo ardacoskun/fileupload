@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { deleteFile } from "../api/api";
 
 const ViewLayout = ({ selectedFiles }) => {
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure want to delete this file ?")) {
+      await deleteFile(id);
+    }
+  };
+
   return (
     <ViewLayoutWrapper>
       {selectedFiles.length > 0 ? (
@@ -20,6 +27,19 @@ const ViewLayout = ({ selectedFiles }) => {
                 <h2>Type</h2>
                 <h4>{file.fileType.split("/")[1]}</h4>
               </Tab>
+              <Tab>
+                <h2>Upload Date</h2>
+                <h4>{file.uploadDate}</h4>
+              </Tab>
+              <ViewLayoutBtnContainer>
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => handleDelete(file._id)}
+                >
+                  delete
+                </span>
+                <span className="material-symbols-outlined">download</span>
+              </ViewLayoutBtnContainer>
             </ViewLayoutCard>
           </ViewLayoutContainer>
         ))
@@ -58,11 +78,7 @@ const ViewLayoutCard = styled.div`
   border: 2px solid black;
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
-  &:hover {
-    transition: transform 0.2s;
-    transform: scale(1.05);
-  }
+  //cursor: pointer;
 
   h4 {
     color: #4267b2;
@@ -78,6 +94,29 @@ const Tab = styled.div`
   h2 {
     text-decoration: underline;
     margin-bottom: 10px;
+  }
+`;
+
+const ViewLayoutBtnContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+      transition: transform 0.2s;
+    }
+  }
+  span:nth-child(1) {
+    color: red;
+    font-size: 30px;
+  }
+  span:nth-child(2) {
+    color: #4267b2;
+    font-size: 30px;
+    margin-left: 20px;
   }
 `;
 

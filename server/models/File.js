@@ -17,6 +17,10 @@ const fileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  uploadDate: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("file", fileSchema);
