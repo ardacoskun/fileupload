@@ -18,7 +18,7 @@ const ViewLayout = ({ selectedFiles }) => {
               </Tab>
               <Tab>
                 <h2>Type</h2>
-                <h4>{file.fileType}</h4>
+                <h4>{file.fileType.split("/")[1]}</h4>
               </Tab>
             </ViewLayoutCard>
           </ViewLayoutContainer>
