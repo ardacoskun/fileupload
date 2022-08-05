@@ -29,4 +29,17 @@ const getFile = async (req, res) => {
   }
 };
 
-module.exports = { fileUpload, getFile };
+//Delete File
+const deleteFile = async (req, res) => {
+  try {
+    const file = await File.findByIdAndDelete(req.params.id);
+    if (!file) {
+      return res.status(401).send();
+    }
+    res.stauts(204).send(file);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+module.exports = { fileUpload, getFile, deleteFile };

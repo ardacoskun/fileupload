@@ -66,8 +66,6 @@ const View = () => {
 };
 
 const ViewWrapper = styled.div`
-  display: flex;
-  justify-content: center;
   flex: 1;
   height: 100%;
   width: 100%;
@@ -86,6 +84,7 @@ const ViewTabs = styled.div`
 
 const ViewTabsList = styled.ul`
   display: flex;
+  justify-content: center;
   list-style-type: none;
   border-bottom: 2px solid black;
   padding: 20px;

@@ -66,7 +66,7 @@ const ViewLayoutCard = styled.div`
   border: 2px solid black;
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
+  //cursor: pointer;
 
   h4 {
     color: #4267b2;
@@ -89,8 +89,14 @@ const ViewLayoutBtnContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 20px;
 
+  span {
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+      transition: transform 0.2s;
+    }
+  }
   span:nth-child(1) {
     color: red;
     font-size: 30px;
@@ -98,6 +104,7 @@ const ViewLayoutBtnContainer = styled.div`
   span:nth-child(2) {
     color: #4267b2;
     font-size: 30px;
+    margin-left: 20px;
   }
 `;
 
