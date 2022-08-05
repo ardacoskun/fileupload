@@ -22,3 +22,14 @@ export const getFile = async () => {
     };
   }
 };
+
+export const deleteFile = async (id) => {
+  try {
+    await axios.delete(`${process.env.REACT_APP_BASE_URL}/file/${id}`);
+  } catch (exception) {
+    return {
+      error: true,
+      exception,
+    };
+  }
+};

@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { deleteFile } from "../api/api";
 
 const ViewLayout = ({ selectedFiles }) => {
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure want to delete this file ?")) {
+      await deleteFile(id);
+    }
+  };
+
   return (
     <ViewLayoutWrapper>
       {selectedFiles.length > 0 ? (
@@ -25,8 +32,13 @@ const ViewLayout = ({ selectedFiles }) => {
                 <h4>{file.uploadDate}</h4>
               </Tab>
               <ViewLayoutBtnContainer>
-                <span class="material-symbols-outlined">delete</span>
-                <span class="material-symbols-outlined">download</span>
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => handleDelete(file._id)}
+                >
+                  delete
+                </span>
+                <span className="material-symbols-outlined">download</span>
               </ViewLayoutBtnContainer>
             </ViewLayoutCard>
           </ViewLayoutContainer>
