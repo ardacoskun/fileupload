@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { getFile } from "../api/api";
 
 const View = () => {
-  return <ViewContainer>View</ViewContainer>;
+  const [files, setFiles] = useState([]);
+
+  const handleGetFile = async () => {
+    try {
+      const files = await getFile();
+      setFiles(files);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <ViewContainer>
+      <button onClick={handleGetFile}>Get File</button>
+    </ViewContainer>
+  );
 };
 
 export const ViewContainer = styled.div`

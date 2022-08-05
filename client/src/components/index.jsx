@@ -1,3 +1,4 @@
 import UploadInput from "./UploadInput";
+import UploadPreview from "./UploadPreview";
 
-export { UploadInput };
+export { UploadInput, UploadPreview };

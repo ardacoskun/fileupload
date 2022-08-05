@@ -1,16 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
+import { upload } from "../api/api";
 
-const UploadInput = () => {
+const UploadInput = ({ handleFileChange, handleCancel }) => {
+  const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (e) => {
+    if (e.target.files[0]) {
+      setFiles(e.target.files[0]);
+      handleFileChange(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", files);
+    await upload(formData);
+    setLoading(false);
+  };
+
   return (
-    <UploadInputWrapper>
-      <UploadInputContainer>
-        <UploadInputImage src={cloudImage} alt="upload" />
-        <h2>Choose a file or drag it here</h2>
-      </UploadInputContainer>
-      <input type="file" value="" />
-    </UploadInputWrapper>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <UploadInputWrapper>
+        <UploadInputContainer>
+          <UploadInputImage src={cloudImage} alt="upload" />
+          <h2>Choose a file or drag it here</h2>
+        </UploadInputContainer>
+        <input type="file" value="" onChange={handleInputChange} />
+      </UploadInputWrapper>
+      <UploadInputBtnContainer>
+        <UploadInputBtn
+          disabled={files.length < 1 && true}
+          onClick={handleUpload}
+        >
+          {loading ? "Loading..." : "Upload"}
+        </UploadInputBtn>
+      </UploadInputBtnContainer>
+    </div>
   );
 };
 
@@ -18,7 +49,6 @@ const UploadInputWrapper = styled.div`
   position: relative;
   width: 600px;
   height: 300px;
-  border: 2px dashed var(--border-color);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -47,7 +77,30 @@ const UploadInputContainer = styled.div`
 `;
 
 const UploadInputImage = styled.img`
-  width: 100px;
+  width: 150px;
+`;
+
+const UploadInputBtnContainer = styled.div`
+  display: flex;
+  margin-top: 20px;
+  width: 350px;
+`;
+
+const UploadInputBtn = styled.button`
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid black;
+  background-color: #4267b2;
+  display: ${({ disabled }) => (disabled ? "none" : "block")};
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #2a4375;
+  }
 `;
 
 export default UploadInput;
