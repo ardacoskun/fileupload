@@ -15,7 +15,7 @@ const fileUpload = async (req, res) => {
     await newFile.save();
     res.status(201).send("Upload Successfully");
   } catch (error) {
-    res.status.send(error);
+    res.status.send({ error: error.message });
   }
 };
 
