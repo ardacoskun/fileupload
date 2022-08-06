@@ -12,7 +12,11 @@ const upload = multer({
     fileSize: 10000000,
   },
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(doc|docx|png|jpg|jpeg|pdf|mp4|mov)$/)) {
+    if (
+      !file.originalname.match(
+        /\.(doc|docx|txt|png|jpg|jpeg|pdf|mp4|mov|DOC|DOCX|TXT|PNG|JPG|JPEG|PDF|MP4|MOV)$/
+      )
+    ) {
       return cb(new Error("Please upload a perimitted file type"));
     }
 
