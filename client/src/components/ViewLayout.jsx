@@ -1,12 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { deleteFile } from "../api/api";
+import { deleteFile, downloadFile } from "../api/api";
 
 const ViewLayout = ({ selectedFiles }) => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure want to delete this file ?")) {
       await deleteFile(id);
     }
+  };
+
+  const handleDownload = async (id) => {
+    try {
+      await downloadFile(id);
+    } catch (error) {}
   };
 
   return (
@@ -38,7 +44,12 @@ const ViewLayout = ({ selectedFiles }) => {
                 >
                   delete
                 </span>
-                <span className="material-symbols-outlined">download</span>
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => handleDownload(file._id)}
+                >
+                  download
+                </span>
               </ViewLayoutBtnContainer>
             </ViewLayoutCard>
           </ViewLayoutContainer>

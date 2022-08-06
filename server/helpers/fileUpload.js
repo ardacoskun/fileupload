@@ -1,33 +1,23 @@
 const multer = require("multer");
 const fs = require("fs");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+const upload = multer({
+  dest: (req, file, cb) => {
     if (!fs.existsSync("uploads")) {
       fs.mkdirSync("uploads");
     }
     cb(null, "uploads");
   },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
-    );
+  limits: {
+    fileSize: 10000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(doc|docx|png|jpg|jpeg|pdf|mp4|mov)$/)) {
+      return cb(new Error("Please upload a perimitted file type"));
+    }
+
+    cb(undefined, true);
   },
 });
-
-const filterFile = (req, file, cb) => {
-  if (
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/jpg" ||
-    file.mimetype === "image/jpeg"
-  ) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({ storage: storage, filterFile: filterFile });
 
 module.exports = { upload };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import FileDownload from "js-file-download";
 
 export const upload = async (data) => {
   try {
@@ -32,4 +33,10 @@ export const deleteFile = async (id) => {
       exception,
     };
   }
+};
+
+export const downloadFile = (id) => {
+  axios.get(`${process.env.REACT_APP_BASE_URL}/download/${id}`).then((res) => {
+    FileDownload(res.data, "Downloaded File");
+  });
 };
