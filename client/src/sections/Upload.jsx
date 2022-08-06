@@ -1,22 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { UploadInput, UploadPreview } from "../components";
 
 const Upload = () => {
-  const [prevFile, setPrevFile] = useState();
-
-  const passFiles = (file) => {
-    setPrevFile(file);
-  };
-
-  const cancelFiles = () => {
-    setPrevFile("");
-  };
-
   return (
     <UploadContainer>
-      <UploadInput passFiles={passFiles} files={prevFile} />
-      <UploadPreview files={prevFile} cancelFiles={cancelFiles} />
+      <UploadInput />
+      <UploadPreview />
     </UploadContainer>
   );
 };

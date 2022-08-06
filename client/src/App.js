@@ -1,11 +1,14 @@
 import React from "react";
 import { Upload, View } from "./sections";
+import { AppContextProvider } from "./contexts/appContext";
 
 function App() {
   return (
     <div className="app">
-      <Upload />
-      <View />
+      <AppContextProvider>
+        <Upload />
+        <View />
+      </AppContextProvider>
     </div>
   );
 }

@@ -1,22 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import cloud from "../assets/cloud.png";
+import { useUpload } from "../contexts/appContext";
 
-const UploadPreview = (props) => {
+const UploadPreview = () => {
+  const { prevFile, cancelFiles } = useUpload();
+
   const handleCancel = () => {
-    props.cancelFiles("");
+    cancelFiles("");
   };
   return (
     <>
       <UploadPreviewWrapper>
-        {props.files ? (
+        {prevFile ? (
           <UploadPreviewContainer>
             <img src={cloud} alt="previewIcon" />
             <UploadPreviewInfo>
-              <h4>{props.files.name}</h4>
+              <h4>{prevFile.name}</h4>
               <h4>
-                {props.files.type.split("/")[1].toUpperCase() ||
-                  props.files.name.slice(-4)}
+                {prevFile.type.split("/")[1].toUpperCase() ||
+                  prevFile.name.slice(-4)}
               </h4>
             </UploadPreviewInfo>
             <UploadPreviewCancelBtn onClick={handleCancel}>
