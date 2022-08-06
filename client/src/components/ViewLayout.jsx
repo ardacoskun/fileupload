@@ -65,7 +65,7 @@ const ViewLayout = ({ selectedFiles, alert }) => {
           </ViewLayoutContainer>
         ))
       ) : (
-        <h1>There is no files in here</h1>
+        <h1>There is no file in here</h1>
       )}
     </ViewLayoutWrapper>
   );
