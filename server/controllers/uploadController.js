@@ -13,7 +13,7 @@ const fileUpload = async (req, res) => {
       uploadDate: displayDate,
     });
     await newFile.save();
-    res.status(201).send("Upload Successfully");
+    res.status(200).send("Upload Successfully");
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
@@ -34,11 +34,12 @@ const deleteFile = async (req, res) => {
   try {
     const file = await File.findByIdAndDelete(req.params.id);
     if (!file) {
-      return res.status(401).send();
+      return res.status(400).send({ error: "File is not found" });
     }
-    res.stauts(204).send(file);
+    res.status(204).send(file);
   } catch (error) {
-    res.status(400).send(error);
+    console.log("error", error);
+    res.status(400).send({ error: error.message });
   }
 };
 

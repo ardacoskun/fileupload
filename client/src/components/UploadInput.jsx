@@ -3,9 +3,14 @@ import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
 import { upload } from "../api/api";
 import { useUpload } from "../contexts/appContext";
+import { Error } from "../components";
 
 const UploadInput = () => {
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    type: "",
+    message: "",
+  });
 
   const { prevFile, passFiles } = useUpload();
 
@@ -19,7 +24,19 @@ const UploadInput = () => {
     setLoading(true);
     const formData = new FormData();
     formData.append("file", prevFile);
-    await upload(formData);
+    const { data } = await upload(formData);
+    console.log("file", data);
+    if (data) {
+      setAlert({ type: "success", message: data });
+    } else {
+      setAlert({ type: "error", message: "Upload Failed !" });
+    }
+    setTimeout(() => {
+      setAlert({
+        type: "",
+        message: "",
+      });
+    }, 2500);
     passFiles("");
     setLoading(false);
   };
@@ -40,6 +57,8 @@ const UploadInput = () => {
           {loading ? "Loading..." : "Upload"}
         </UploadInputBtn>
       </UploadInputBtnContainer>
+
+      {alert && <Error message={alert.message} type={alert.type} />}
     </div>
   );
 };
