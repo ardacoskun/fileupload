@@ -35,11 +35,8 @@ export const deleteFile = async (id) => {
   }
 };
 
-export const downloadFile = (fileName, req, res) => {
-  axios
-    .get(`${process.env.REACT_APP_BASE_URL}/file/download/${fileName}`)
-    .then(() => {
-      console.log("data", res.data);
-      FileDownload(req.data, "Downloaded File");
-    });
+export const downloadFile = (id) => {
+  axios.get(`${process.env.REACT_APP_BASE_URL}/download/${id}`).then((res) => {
+    FileDownload(res.data, "Downloaded File");
+  });
 };
