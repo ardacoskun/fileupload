@@ -2,7 +2,12 @@ const multer = require("multer");
 const fs = require("fs");
 
 const upload = multer({
-  dest: "uploads",
+  dest: (req, file, cb) => {
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
+    }
+    cb(null, "uploads");
+  },
   limits: {
     fileSize: 10000000,
   },
