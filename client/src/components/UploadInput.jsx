@@ -48,6 +48,10 @@ const UploadInput = () => {
         <UploadInputContainer>
           <UploadInputImage src={cloudImage} alt="upload" />
           <h2>Choose a file or drag it here</h2>
+          <div>
+            <h3>Supported Files</h3>
+            <h4>(DOC,DOCX,TXT,PNG,JPG,JPEG,PDF,MP4,MOV)</h4>
+          </div>
         </UploadInputContainer>
         <input type="file" value="" onChange={handleInputChange} />
       </UploadInputWrapper>
@@ -89,8 +93,21 @@ const UploadInputWrapper = styled.div`
 
 const UploadInputContainer = styled.div`
   text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   font-weight: 600;
   padding: 10px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+      margin: 5px auto;
+    }
+  }
 `;
 
 const UploadInputImage = styled.img`
