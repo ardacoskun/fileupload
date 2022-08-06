@@ -12,7 +12,7 @@ const View = () => {
     message: "",
   });
 
-  const tabLinks = ["video", "image", "text", "other"];
+  const tabLinks = ["video", "image", "text"];
 
   useEffect(() => {
     const handleGetFile = async () => {
@@ -48,8 +48,6 @@ const View = () => {
           file.fileType.includes(link) || file.fileType.includes("application")
       );
       setSelectedFiles([...filteredFiles]);
-    }
-    if (`${link}s`.toLowerCase() === "others") {
     }
   };
 
