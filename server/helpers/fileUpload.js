@@ -17,7 +17,7 @@ const upload = multer({
         /\.(doc|docx|txt|png|jpg|jpeg|pdf|mp4|mov|DOC|DOCX|TXT|PNG|JPG|JPEG|PDF|MP4|MOV)$/
       )
     ) {
-      return cb(new Error("Please upload a perimitted file type"));
+      return cb(new Error("Please upload a permitted file type"));
     }
 
     cb(undefined, true);

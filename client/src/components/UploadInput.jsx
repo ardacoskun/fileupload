@@ -24,11 +24,11 @@ const UploadInput = () => {
     setLoading(true);
     const formData = new FormData();
     formData.append("file", prevFile);
-    const { data } = await upload(formData);
-    if (data) {
-      setAlert({ type: "success", message: data });
+    const files = await upload(formData);
+    if (files.data) {
+      setAlert({ type: "success", message: files.data });
     } else {
-      setAlert({ type: "error", message: "Upload Failed !" });
+      setAlert({ type: "error", message: files.exception.response.data });
     }
     setTimeout(() => {
       setAlert({

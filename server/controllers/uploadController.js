@@ -1,23 +1,4 @@
 const File = require("../models/File");
-const displayDate = require("../helpers/getDate");
-const sizeConvert = require("../helpers/sizeConvert");
-
-//Create New File
-const fileUpload = async (req, res) => {
-  try {
-    const newFile = new File({
-      fileName: req.file.originalname,
-      fileType: req.file.mimetype,
-      fileSize: sizeConvert(req.file.size, 3),
-      filePath: req.file.path,
-      uploadDate: displayDate,
-    });
-    await newFile.save();
-    res.status(200).send("Upload Successfully");
-  } catch (error) {
-    res.status(400).send({ error: error.message });
-  }
-};
 
 //Get File
 const getFile = async (req, res) => {
@@ -45,4 +26,4 @@ const deleteFile = async (req, res) => {
   }
 };
 
-module.exports = { fileUpload, getFile, deleteFile };
+module.exports = { getFile, deleteFile };
