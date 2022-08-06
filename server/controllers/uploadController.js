@@ -3,8 +3,8 @@ const displayDate = require("../helpers/getDate");
 const sizeConvert = require("../helpers/sizeConvert");
 
 //Create New File
-const fileUpload = async (req, res) => {
-  try {
+const fileUpload =
+  (async (req, res) => {
     const newFile = new File({
       fileName: req.file.originalname,
       fileType: req.file.mimetype,
@@ -14,18 +14,17 @@ const fileUpload = async (req, res) => {
     });
     await newFile.save();
     res.status(201).send("Upload Successfully");
-  } catch (error) {
-    res.status.send({ error: error.message });
-  }
-};
-
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  });
 //Get File
 const getFile = async (req, res) => {
   try {
     const files = await File.find();
     res.status(200).send(files);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send({ error: error.message });
   }
 };
 
