@@ -2,28 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import cloud from "../assets/cloud.png";
 
-const UploadPreview = ({ files, setFiles }) => {
+const UploadPreview = (props) => {
   const handleCancel = () => {
-    setFiles([]);
+    props.cancelFiles("");
   };
   return (
     <>
-      {files.length !== 0 ? (
-        <UploadPreviewWrapper>
+      <UploadPreviewWrapper>
+        {props.files ? (
           <UploadPreviewContainer>
             <img src={cloud} alt="previewIcon" />
             <UploadPreviewInfo>
-              <h4>{files.name}</h4>
+              <h4>{props.files.name}</h4>
               <h4>
-                {files.type.split("/")[1].toUpperCase() || files.name.slice(-4)}
+                {props.files.type.split("/")[1].toUpperCase() ||
+                  props.files.name.slice(-4)}
               </h4>
             </UploadPreviewInfo>
             <UploadPreviewCancelBtn onClick={handleCancel}>
               x
             </UploadPreviewCancelBtn>
           </UploadPreviewContainer>
-        </UploadPreviewWrapper>
-      ) : null}
+        ) : null}
+      </UploadPreviewWrapper>
     </>
   );
 };
