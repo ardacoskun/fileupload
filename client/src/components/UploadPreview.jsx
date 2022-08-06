@@ -36,7 +36,6 @@ const UploadPreviewWrapper = styled.div`
   flex: 1;
   height: 100%;
   width: 100%;
-  border-right: 2px solid black;
   margin-top: 50px;
 `;
 

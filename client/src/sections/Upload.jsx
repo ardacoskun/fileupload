@@ -32,4 +32,4 @@ export const UploadContainer = styled.div`
   margin-top: 200px;
 `;
 
-export default Upload;
+export default React.memo(Upload);
