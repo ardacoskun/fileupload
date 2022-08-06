@@ -13,7 +13,7 @@ const fileUpload = async (req, res) => {
       uploadDate: displayDate,
     });
     await newFile.save();
-    res.status(201).send("Upload Successfully");
+    res.status(200).send("Upload Successfully");
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
@@ -23,9 +23,12 @@ const fileUpload = async (req, res) => {
 const getFile = async (req, res) => {
   try {
     const files = await File.find();
-    res.status(200).send(files);
+    if (files) {
+      return res.status(200).send(files);
+    }
+    return res.status(400).send("Files not found");
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    return res.status(500).send("Something went wrong!!");
   }
 };
 
@@ -34,11 +37,11 @@ const deleteFile = async (req, res) => {
   try {
     const file = await File.findByIdAndDelete(req.params.id);
     if (!file) {
-      return res.status(401).send();
+      return res.status(400).send("File is not found");
     }
-    res.stauts(204).send(file);
+    return res.status(204).send(file);
   } catch (error) {
-    res.status(400).send(error);
+    return res.status(500).send("Something went wrong!!");
   }
 };
 

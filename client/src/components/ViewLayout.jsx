@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteFile, downloadFile } from "../api/api";
+import Error from "./Error";
 
-const ViewLayout = ({ selectedFiles }) => {
+const ViewLayout = ({ selectedFiles, alert }) => {
   const [error, setError] = useState("");
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure want to delete this file ?")) {
@@ -24,7 +25,9 @@ const ViewLayout = ({ selectedFiles }) => {
 
   return (
     <ViewLayoutWrapper>
-      {selectedFiles.length > 0 ? (
+      {alert.message ? (
+        <Error message={alert.message} type={alert.type} />
+      ) : selectedFiles.length > 0 ? (
         selectedFiles.map((file, index) => (
           <ViewLayoutContainer key={index}>
             <ViewLayoutCard>
@@ -62,7 +65,7 @@ const ViewLayout = ({ selectedFiles }) => {
           </ViewLayoutContainer>
         ))
       ) : (
-        <h1>{`There is no files in here.`}</h1>
+        <h1>There is no files in here</h1>
       )}
     </ViewLayoutWrapper>
   );
@@ -96,7 +99,6 @@ const ViewLayoutCard = styled.div`
   border: 2px solid black;
   display: flex;
   justify-content: space-between;
-  //cursor: pointer;
 
   h4 {
     color: #4267b2;

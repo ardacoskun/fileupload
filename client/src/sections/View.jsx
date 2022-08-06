@@ -2,48 +2,54 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { getFile } from "../api/api";
-import { ViewLayout } from "../components";
+import { Tabs, ViewLayout } from "../components";
 
 const View = () => {
   const [files, setFiles] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState(files);
+  const [alert, setAlert] = useState({
+    type: "",
+    message: "",
+  });
 
-  const tabLinks = ["Videos", "Images", "Texts", "Others"];
+  const tabLinks = ["video", "image", "text", "other"];
 
   useEffect(() => {
     const handleGetFile = async () => {
-      try {
-        const files = await getFile();
+      const files = await getFile();
+      if (files) {
         setFiles(files);
-      } catch (error) {
-        console.log(error);
+      } else {
+        setAlert({
+          type: "error",
+          message: files.data,
+        });
       }
     };
     handleGetFile();
   }, [selectedFiles]);
 
   const handleGetType = (link) => {
-    if (link.toLowerCase() === "videos") {
+    if (`${link}s`.toLowerCase() === "videos") {
       const filteredFiles = files.filter((file) =>
-        file.fileType.includes("video")
+        file.fileType.includes(link)
       );
       setSelectedFiles([...filteredFiles]);
     }
-    if (link.toLowerCase() === "images") {
+    if (`${link}s`.toLowerCase() === "images") {
       const filteredFiles = files.filter((file) =>
-        file.fileType.includes("image")
+        file.fileType.includes(link)
       );
       setSelectedFiles([...filteredFiles]);
     }
-    if (link.toLowerCase() === "texts") {
+    if (`${link}s`.toLowerCase() === "texts") {
       const filteredFiles = files.filter(
         (file) =>
-          file.fileType.includes("text") ||
-          file.fileType.includes("application")
+          file.fileType.includes(link) || file.fileType.includes("application")
       );
       setSelectedFiles([...filteredFiles]);
     }
-    if (link.toLowerCase() === "others") {
+    if (`${link}s`.toLowerCase() === "others") {
     }
   };
 
@@ -51,15 +57,9 @@ const View = () => {
     <ViewWrapper>
       <ViewContainer>
         <ViewTabs>
-          <ViewTabsList>
-            {tabLinks.map((link, index) => (
-              <ViewTabsLink key={index} onClick={() => handleGetType(link)}>
-                {link}
-              </ViewTabsLink>
-            ))}
-          </ViewTabsList>
+          <Tabs tabLinks={tabLinks} handleGetType={handleGetType} />
         </ViewTabs>
-        <ViewLayout selectedFiles={selectedFiles} />
+        <ViewLayout selectedFiles={selectedFiles} alert={alert} />
       </ViewContainer>
     </ViewWrapper>
   );
@@ -80,28 +80,6 @@ const ViewTabs = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 100px;
-`;
-
-const ViewTabsList = styled.ul`
-  display: flex;
-  justify-content: center;
-  list-style-type: none;
-  border-bottom: 2px solid black;
-  padding: 20px;
-  font-size: 20px;
-`;
-
-const ViewTabsLink = styled.li`
-  margin: auto 40px;
-  cursor: pointer;
-  font-weight: bold;
-  &:hover {
-    color: #4267b2;
-  }
-
-  &:active {
-    color: #4267b2;
-  }
 `;
 
 export default View;
