@@ -34,10 +34,7 @@ const UploadInput = ({ handleFileChange }) => {
         <input type="file" value="" onChange={handleInputChange} />
       </UploadInputWrapper>
       <UploadInputBtnContainer>
-        <UploadInputBtn
-          disabled={files.length < 1 && true}
-          onClick={handleUpload}
-        >
+        <UploadInputBtn disabled={!files.name && true} onClick={handleUpload}>
           {loading ? "Loading..." : "Upload"}
         </UploadInputBtn>
       </UploadInputBtnContainer>

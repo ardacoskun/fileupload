@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteFile, downloadFile } from "../api/api";
 
 const ViewLayout = ({ selectedFiles }) => {
+  const [error, setError] = useState("");
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure want to delete this file ?")) {
       await deleteFile(id);
@@ -12,8 +13,14 @@ const ViewLayout = ({ selectedFiles }) => {
   const handleDownload = async (id, fileName) => {
     try {
       await downloadFile(id, fileName);
-    } catch (error) {}
+    } catch (error) {
+      setError("Download Failed");
+    }
   };
+
+  if (error) {
+    alert(error);
+  }
 
   return (
     <ViewLayoutWrapper>
