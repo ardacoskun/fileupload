@@ -3,22 +3,21 @@ import styled from "styled-components";
 import cloudImage from "../assets/cloud.png";
 import { upload } from "../api/api";
 
-const UploadInput = ({ handleFileChange }) => {
-  const [files, setFiles] = useState([]);
+const UploadInput = (props) => {
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     if (e.target.files[0]) {
-      setFiles(e.target.files[0]);
-      handleFileChange(e.target.files[0]);
+      props.passFiles(e.target.files[0]);
     }
   };
 
   const handleUpload = async () => {
     setLoading(true);
     const formData = new FormData();
-    formData.append("file", files);
+    formData.append("file", props.files);
     await upload(formData);
+    props.passFiles("");
     setLoading(false);
   };
 
@@ -34,10 +33,7 @@ const UploadInput = ({ handleFileChange }) => {
         <input type="file" value="" onChange={handleInputChange} />
       </UploadInputWrapper>
       <UploadInputBtnContainer>
-        <UploadInputBtn
-          disabled={files.length < 1 && true}
-          onClick={handleUpload}
-        >
+        <UploadInputBtn disabled={!props.files && true} onClick={handleUpload}>
           {loading ? "Loading..." : "Upload"}
         </UploadInputBtn>
       </UploadInputBtnContainer>

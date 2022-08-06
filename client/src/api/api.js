@@ -35,8 +35,12 @@ export const deleteFile = async (id) => {
   }
 };
 
-export const downloadFile = (id) => {
-  axios.get(`${process.env.REACT_APP_BASE_URL}/download/${id}`).then((res) => {
-    FileDownload(res.data, "Downloaded File");
+export const downloadFile = (id, fileName) => {
+  axios({
+    url: `${process.env.REACT_APP_BASE_URL}/download/${id}`,
+    method: "GET",
+    responseType: "blob",
+  }).then((res) => {
+    FileDownload(res.data, fileName);
   });
 };

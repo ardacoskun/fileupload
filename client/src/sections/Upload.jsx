@@ -3,16 +3,20 @@ import styled from "styled-components";
 import { UploadInput, UploadPreview } from "../components";
 
 const Upload = () => {
-  const [files, setFiles] = useState([]);
+  const [prevFile, setPrevFile] = useState();
 
-  const handleFileChange = (files) => {
-    setFiles(files);
+  const passFiles = (file) => {
+    setPrevFile(file);
+  };
+
+  const cancelFiles = () => {
+    setPrevFile("");
   };
 
   return (
     <UploadContainer>
-      <UploadInput handleFileChange={(files) => handleFileChange(files)} />
-      <UploadPreview files={files} setFiles={setFiles} />
+      <UploadInput passFiles={passFiles} files={prevFile} />
+      <UploadPreview files={prevFile} cancelFiles={cancelFiles} />
     </UploadContainer>
   );
 };
