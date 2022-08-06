@@ -25,7 +25,6 @@ const UploadInput = () => {
     const formData = new FormData();
     formData.append("file", prevFile);
     const { data } = await upload(formData);
-    console.log("file", data);
     if (data) {
       setAlert({ type: "success", message: data });
     } else {

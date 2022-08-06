@@ -7,16 +7,23 @@ import { Tabs, ViewLayout } from "../components";
 const View = () => {
   const [files, setFiles] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState(files);
+  const [alert, setAlert] = useState({
+    type: "",
+    message: "",
+  });
 
   const tabLinks = ["video", "image", "text", "other"];
 
   useEffect(() => {
     const handleGetFile = async () => {
-      try {
-        const files = await getFile();
+      const files = await getFile();
+      if (files) {
         setFiles(files);
-      } catch (error) {
-        console.log(error);
+      } else {
+        setAlert({
+          type: "error",
+          message: files.data,
+        });
       }
     };
     handleGetFile();
@@ -52,7 +59,7 @@ const View = () => {
         <ViewTabs>
           <Tabs tabLinks={tabLinks} handleGetType={handleGetType} />
         </ViewTabs>
-        <ViewLayout selectedFiles={selectedFiles} />
+        <ViewLayout selectedFiles={selectedFiles} alert={alert} />
       </ViewContainer>
     </ViewWrapper>
   );
