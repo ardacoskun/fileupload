@@ -5,8 +5,8 @@ import { getFile, getFileType } from "../api/api";
 import { Tabs, ViewLayout } from "../components";
 
 const View = () => {
-  const [files, setFiles] = useState([]);
-  const [selectedFiles, setSelectedFiles] = useState(files);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({
     type: "",
     message: "",
@@ -14,26 +14,13 @@ const View = () => {
 
   const tabLinks = ["video", "image", "text"];
 
-  useEffect(() => {
-    const handleGetFile = async () => {
-      const files = await getFile();
-      if (files) {
-        setFiles(files);
-      } else {
-        setAlert({
-          type: "error",
-          message: files.data,
-        });
-      }
-    };
-    handleGetFile();
-  }, [selectedFiles]);
-
   const handleGetType = async (link) => {
+    setLoading(true);
     try {
-      const files = await getFileType(link);
-      console.log("files", files);
+      const filteredFiles = await getFileType(link);
+      setSelectedFiles(filteredFiles);
     } catch (error) {}
+    setLoading(false);
   };
 
   return (
@@ -42,7 +29,11 @@ const View = () => {
         <ViewTabs>
           <Tabs tabLinks={tabLinks} handleGetType={handleGetType} />
         </ViewTabs>
-        <ViewLayout selectedFiles={selectedFiles} alert={alert} />
+        <ViewLayout
+          selectedFiles={selectedFiles}
+          alert={alert}
+          loading={loading}
+        />
       </ViewContainer>
     </ViewWrapper>
   );
