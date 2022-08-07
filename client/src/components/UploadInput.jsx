@@ -53,10 +53,19 @@ const UploadInput = () => {
             <h4>(DOC,DOCX,TXT,PNG,JPG,JPEG,PDF,MP4,MOV)</h4>
           </div>
         </UploadInputContainer>
-        <input type="file" value="" onChange={handleInputChange} />
+        <input
+          type="file"
+          value=""
+          onChange={handleInputChange}
+          data-testid="uploadInput"
+        />
       </UploadInputWrapper>
       <UploadInputBtnContainer>
-        <UploadInputBtn disabled={!prevFile && true} onClick={handleUpload}>
+        <UploadInputBtn
+          disabled={!prevFile && true}
+          onClick={handleUpload}
+          data-testid="uploadBtn"
+        >
           {loading ? "Loading..." : "Upload"}
         </UploadInputBtn>
       </UploadInputBtnContainer>
