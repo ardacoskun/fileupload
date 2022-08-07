@@ -30,25 +30,14 @@ const View = () => {
   }, [selectedFiles]);
 
   const handleGetType = (link) => {
-    if (`${link}s`.toLowerCase() === "videos") {
-      const filteredFiles = files.filter((file) =>
-        file.fileType.includes(link)
-      );
-      setSelectedFiles([...filteredFiles]);
-    }
-    if (`${link}s`.toLowerCase() === "images") {
-      const filteredFiles = files.filter((file) =>
-        file.fileType.includes(link)
-      );
-      setSelectedFiles([...filteredFiles]);
-    }
-    if (`${link}s`.toLowerCase() === "texts") {
-      const filteredFiles = files.filter(
-        (file) =>
-          file.fileType.includes(link) || file.fileType.includes("application")
-      );
-      setSelectedFiles([...filteredFiles]);
-    }
+    tabLinks.forEach((item) => {
+      if (`${link}s`.toLowerCase() === `${item}s`.toLowerCase()) {
+        const filteredFiles = files.filter((file) =>
+          file.fileType.includes(link)
+        );
+        setSelectedFiles([...filteredFiles]);
+      }
+    });
   };
 
   return (
