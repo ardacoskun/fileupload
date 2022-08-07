@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { getFile } from "../api/api";
+import { getFile, getFileType } from "../api/api";
 import { Tabs, ViewLayout } from "../components";
 
 const View = () => {
@@ -29,23 +29,11 @@ const View = () => {
     handleGetFile();
   }, [selectedFiles]);
 
-  const handleGetType = (link) => {
-    let filteredFiles = [];
-    tabLinks.forEach((item) => {
-      if (`${link}s`.toLowerCase() === `${item}s`.toLowerCase()) {
-        if (`${item}s`.toLowerCase() === "texts") {
-          filteredFiles = files.filter(
-            (file) =>
-              file.fileType.includes(link) ||
-              file.fileType.includes("application")
-          );
-          setSelectedFiles([...filteredFiles]);
-        } else {
-          filteredFiles = files.filter((file) => file.fileType.includes(link));
-          setSelectedFiles([...filteredFiles]);
-        }
-      }
-    });
+  const handleGetType = async (link) => {
+    try {
+      const files = await getFileType(link);
+      console.log("files", files);
+    } catch (error) {}
   };
 
   return (

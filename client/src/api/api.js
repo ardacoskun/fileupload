@@ -4,6 +4,7 @@ import FileDownload from "js-file-download";
 export const upload = async (data) => {
   try {
     return await axios.post(`${process.env.REACT_APP_BASE_URL}/file`, data);
+    return data;
   } catch (exception) {
     return {
       error: true,
@@ -15,6 +16,20 @@ export const upload = async (data) => {
 export const getFile = async () => {
   try {
     const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/file`);
+    return data;
+  } catch (exception) {
+    return {
+      error: true,
+      exception,
+    };
+  }
+};
+
+export const getFileType = async (type) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/file/${type}`
+    );
     return data;
   } catch (exception) {
     return {
