@@ -30,12 +30,20 @@ const View = () => {
   }, [selectedFiles]);
 
   const handleGetType = (link) => {
+    let filteredFiles = [];
     tabLinks.forEach((item) => {
       if (`${link}s`.toLowerCase() === `${item}s`.toLowerCase()) {
-        const filteredFiles = files.filter((file) =>
-          file.fileType.includes(link)
-        );
-        setSelectedFiles([...filteredFiles]);
+        if (`${item}s`.toLowerCase() === "texts") {
+          filteredFiles = files.filter(
+            (file) =>
+              file.fileType.includes(link) ||
+              file.fileType.includes("application")
+          );
+          setSelectedFiles([...filteredFiles]);
+        } else {
+          filteredFiles = files.filter((file) => file.fileType.includes(link));
+          setSelectedFiles([...filteredFiles]);
+        }
       }
     });
   };
