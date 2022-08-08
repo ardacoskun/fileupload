@@ -143,7 +143,7 @@ const UploadInputBtn = styled.button`
   width: 100%;
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   border-radius: 20px;
   background-color: ${({ disabled }) => (disabled ? "gray" : "#4267b2")};
   color: white;
