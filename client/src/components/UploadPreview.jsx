@@ -6,6 +6,8 @@ import { useUpload } from "../contexts/appContext";
 const UploadPreview = () => {
   const { prevFile, cancelFiles } = useUpload();
 
+  console.log("prev", prevFile);
+
   const handleCancel = () => {
     cancelFiles("");
   };
@@ -18,8 +20,9 @@ const UploadPreview = () => {
             <UploadPreviewInfo>
               <h4>{prevFile.name}</h4>
               <h4>
-                {prevFile.type.split("/")[1].toUpperCase() ||
-                  prevFile.name.slice(-4)}
+                {prevFile.type && prevFile.type !== ""
+                  ? prevFile.type.split("/")[1].toUpperCase()
+                  : prevFile.name.slice(-4)}
               </h4>
             </UploadPreviewInfo>
             <UploadPreviewCancelBtn onClick={handleCancel}>
