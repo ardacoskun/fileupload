@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { upload } = require("../helpers/fileUpload");
-const { getFile, deleteFile } = require("../controllers/uploadController");
+const {
+  getFile,
+  deleteFile,
+  getFileType,
+} = require("../controllers/uploadController");
 const displayDate = require("../helpers/getDate");
 const sizeConvert = require("../helpers/sizeConvert");
 const File = require("../models/File");
@@ -25,6 +29,7 @@ router.post(
   }
 );
 router.get("/file", getFile);
+router.get("/file/:type", getFileType);
 router.delete("/file/:id", deleteFile);
 
 module.exports = router;

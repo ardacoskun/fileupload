@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Tabs = (props) => {
   return (
     <ViewTabsList>
       {props.tabLinks.map((link, index) => (
-        <ViewTabsLink key={index} onClick={() => props.handleGetType(link)}>
-          {`${link.toUpperCase()}S`}
-        </ViewTabsLink>
+        <Link to={`/${link}`} key={index}>
+          <ViewTabsLink>{`${link.toUpperCase()}S`}</ViewTabsLink>
+        </Link>
       ))}
     </ViewTabsList>
   );

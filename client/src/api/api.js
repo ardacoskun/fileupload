@@ -24,6 +24,20 @@ export const getFile = async () => {
   }
 };
 
+export const getFileType = async (type) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/file/${type}`
+    );
+    return data;
+  } catch (exception) {
+    return {
+      error: true,
+      exception,
+    };
+  }
+};
+
 export const deleteFile = async (id) => {
   try {
     await axios.delete(`${process.env.REACT_APP_BASE_URL}/file/${id}`);

@@ -4,6 +4,7 @@ import cloudImage from "../assets/cloud.png";
 import { upload } from "../api/api";
 import { useUpload } from "../contexts/appContext";
 import { Error } from "../components";
+import { useNavigate } from "react-router-dom";
 
 const UploadInput = () => {
   const [loading, setLoading] = useState(false);
@@ -11,6 +12,7 @@ const UploadInput = () => {
     type: "",
     message: "",
   });
+  const navigate = useNavigate();
 
   const { prevFile, passFiles } = useUpload();
 
@@ -27,15 +29,22 @@ const UploadInput = () => {
     const files = await upload(formData);
     if (files.data) {
       setAlert({ type: "success", message: files.data });
+      setTimeout(() => {
+        setAlert({
+          type: "",
+          message: "",
+        });
+        navigate(0);
+      }, 1500);
     } else {
       setAlert({ type: "error", message: files.exception.response.data });
+      setTimeout(() => {
+        setAlert({
+          type: "",
+          message: "",
+        });
+      }, 2500);
     }
-    setTimeout(() => {
-      setAlert({
-        type: "",
-        message: "",
-      });
-    }, 2500);
     passFiles("");
     setLoading(false);
   };
@@ -53,10 +62,19 @@ const UploadInput = () => {
             <h4>(DOC,DOCX,TXT,PNG,JPG,JPEG,PDF,MP4,MOV)</h4>
           </div>
         </UploadInputContainer>
-        <input type="file" value="" onChange={handleInputChange} />
+        <input
+          type="file"
+          value=""
+          onChange={handleInputChange}
+          data-testid="uploadInput"
+        />
       </UploadInputWrapper>
       <UploadInputBtnContainer>
-        <UploadInputBtn disabled={!prevFile && true} onClick={handleUpload}>
+        <UploadInputBtn
+          disabled={!prevFile && true}
+          onClick={handleUpload}
+          data-testid="uploadBtn"
+        >
           {loading ? "Loading..." : "Upload"}
         </UploadInputBtn>
       </UploadInputBtnContainer>
