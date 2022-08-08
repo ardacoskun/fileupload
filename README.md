@@ -27,7 +27,7 @@ npm install
 cd server
 npm install
 ```
-````
+---
 
 2- Create .env file like;
 
