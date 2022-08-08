@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteFile, downloadFile } from "../api/api";
 import Error from "./Error";
+import { useNavigate } from "react-router-dom";
 
 const ViewLayout = ({ selectedFiles, alert, loading }) => {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure want to delete this file ?")) {
       await deleteFile(id);
+      navigate(0);
     }
   };
 

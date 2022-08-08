@@ -1,15 +1,16 @@
 import React from "react";
-import { Upload, View } from "./sections";
+import { View } from "./sections";
 import { AppContextProvider } from "./contexts/appContext";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="app">
-      <AppContextProvider>
-        <Upload />
-        <View />
-      </AppContextProvider>
-    </div>
+    <AppContextProvider>
+      <Routes>
+        <Route path="/:type" element={<View />} />
+        <Route path="*" element={<View />} />
+      </Routes>
+    </AppContextProvider>
   );
 }
 
