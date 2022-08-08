@@ -10,6 +10,7 @@ const displayDate = require("../helpers/getDate");
 const sizeConvert = require("../helpers/sizeConvert");
 const File = require("../models/File");
 
+//POST-Upload file Route
 router.post(
   "/file",
   upload.single("file"),
@@ -28,8 +29,13 @@ router.post(
     res.status(400).send(error.message);
   }
 );
+//GET-Get All Files Route
 router.get("/file", getFile);
+
+//GET-Get Single Type Route
 router.get("/file/:type", getFileType);
+
+//GET-Delete File Route
 router.delete("/file/:id", deleteFile);
 
 module.exports = router;
