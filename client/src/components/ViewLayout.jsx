@@ -46,7 +46,11 @@ const ViewLayout = ({ selectedFiles, alert, loading }) => {
                 </Tab>
                 <Tab>
                   <h2>Type</h2>
-                  <h4>{file.fileType.split("/")[1]}</h4>
+                  <h4>
+                    {file.fileType.length > 30
+                      ? `${file.fileType.split("/")[1].slice(0, 30)}.....`
+                      : file.fileType.split("/")[1]}
+                  </h4>
                 </Tab>
                 <Tab>
                   <h2>Upload Date</h2>
